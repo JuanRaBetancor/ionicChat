@@ -12,6 +12,12 @@ import { AngularFireModule } from 'angularfire2';
 import { MyApp } from './app.component';
 import { AuthProvider } from '../providers/auth/auth';
 import { UserProvider } from '../providers/user/user';
+import { ImghandlerProvider } from '../providers/imghandler/imghandler';
+
+import { File } from '@ionic-native/file';
+import { FileChooser } from '@ionic-native/file-chooser';
+import { FilePath } from '@ionic-native/file-path';
+
 
 
 @NgModule({
@@ -34,7 +40,11 @@ import { UserProvider } from '../providers/user/user';
     AuthProvider,
     AngularFireAuth,
     AuthProvider,
-    UserProvider
+    UserProvider,
+    ImghandlerProvider,
+    File,
+    FileChooser,
+    FilePath
   ]
 })
 export class AppModule {}
