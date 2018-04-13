@@ -1,0 +1,41 @@
+page-signup .background {
+  background-image: url("../../assets/imgs/backgroundLogin.jpg"); }
+page-signup .scroll-content {
+  align-content: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center; }
+page-signup ion-card.card {
+  box-shadow: none;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 5px; }
+page-signup a, page-signup p,
+page-signup ion-card-header.card-header {
+  color: #fff !important; }
+page-signup .list > .item-block:first-child {
+  border: medium none; }
+page-signup .item {
+  margin-bottom: 10px;
+  background: rgba(255, 255, 255, 0.5);
+  border: medium none; }
+  page-signup .item .text-input {
+    color: #fff; }
+  page-signup .item input::-moz-placeholder {
+    color: #fff !important; }
+  page-signup .item input:-moz-placeholder {
+    color: #fff !important; }
+  page-signup .item *:-moz-placeholder {
+    color: #fff !important; }
+  page-signup .item *:-ms-input-placeholder {
+    color: #fff !important; }
+  page-signup .item *::-webkit-input-placeholder {
+    color: #fff !important; }
+page-signup .icon {
+  padding-right: 10px; }
+page-signup .bottom {
+  bottom: 0; }
+page-signup .input-cover {
+  position: static; }
+
+/*# sourceMappingURL=signup.css.map */

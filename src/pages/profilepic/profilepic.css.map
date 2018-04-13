@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAEI,kCAAG;EACD,MAAM,EAAE,KAAK;EACb,KAAK,EAAE,KAAK;EACZ,aAAa,EAAC,GAAG;EACjB,MAAM,EAAE,kCAA+B;EACvC,kBAAkB,EAAE,uCAAoC;EACxD,eAAe,EAAE,uCAAoC;EACrD,UAAU,EAAE,uCAAoC;AAGpD,+BAAgB;EACd,aAAa,EAAE,MAAM;EACrB,OAAO,EAAE,IAAI;EACb,cAAc,EAAE,MAAM;EACtB,eAAe,EAAE,MAAM;EACvB,UAAU,EAAE,MAAM",
+"sources": ["profilepic.scss"],
+"names": [],
+"file": "profilepic.css"
+}
