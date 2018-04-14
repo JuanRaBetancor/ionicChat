@@ -17,6 +17,7 @@ import { ImghandlerProvider } from '../providers/imghandler/imghandler';
 import { File } from '@ionic-native/file';
 import { FileChooser } from '@ionic-native/file-chooser';
 import { FilePath } from '@ionic-native/file-path';
+import { RequestsProvider } from '../providers/requests/requests';
 
 
 
@@ -44,7 +45,8 @@ import { FilePath } from '@ionic-native/file-path';
     ImghandlerProvider,
     File,
     FileChooser,
-    FilePath
+    FilePath,
+    RequestsProvider
   ]
 })
 export class AppModule {}
