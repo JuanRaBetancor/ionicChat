@@ -11,5 +11,5 @@ Ionic + Firebase + AngularFire2 Chat app for DAW2
 	- Request to add friends -> You can add/decline the request
 	- Chat one2one
 	- You can send images in chat rooms (some bugs).
-     - ionic visual components
+    - ionic visual components
   
