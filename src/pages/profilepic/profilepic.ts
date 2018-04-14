@@ -26,7 +26,7 @@ export class ProfilepicPage {
   chooseimage() {
     let loader = this.loadingCtrl.create({
       content: 'Please wait'
-    })
+    });
     loader.present();
     this.imgservice.uploadimage().then((uploadedurl: any) => {
       loader.dismiss();

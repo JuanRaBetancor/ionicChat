@@ -52,7 +52,7 @@ export class ImghandlerProvider {
           })
         })
       })
-    })
+    });
     return promise;
   }
 
@@ -82,7 +82,7 @@ export class ImghandlerProvider {
           })
         })
       })
-    })
+    });
     return promise;
   }
 

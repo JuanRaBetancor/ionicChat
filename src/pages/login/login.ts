@@ -42,4 +42,8 @@ export class LoginPage {
     this.navCtrl.push('SignupPage');
   }
 
+  /*gomain(){
+    this.navCtrl.push('MainpagePage');
+  }*/
+
 }
