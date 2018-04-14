@@ -8,9 +8,9 @@ Ionic + Firebase + AngularFire2 Chat app for DAW2
 	- Firebase Database.
 	- User profile (username, email, avatar)
 	- Validation in forms
-  - Ionic visual components
 	- Request to add friends -> You can add/decline the request
 	- Chat one2one
 	- You can send images in chat rooms (some bugs).
+  - Ionic visual components
 	...
 
