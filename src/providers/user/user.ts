@@ -120,10 +120,8 @@ export class UserProvider {
       }).catch((err) => {
         reject(err);
       })
-    })
+    });
     return promise;
   }
-
-
 
 }
