@@ -107,4 +107,23 @@ export class UserProvider {
     return promise;
   }
 
+
+  getallusers() {
+    var promise = new Promise((resolve, reject) => {
+      this.firedata.orderByChild('uid').once('value', (snapshot) => {
+        let userdata = snapshot.val();
+        let temparr = [];
+        for (var key in userdata) {
+          temparr.push(userdata[key]);
+        }
+        resolve(temparr);
+      }).catch((err) => {
+        reject(err);
+      })
+    })
+    return promise;
+  }
+
+
+
 }
