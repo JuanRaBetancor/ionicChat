@@ -112,4 +112,16 @@ export class GroupsProvider {
   }
 
 
+  deletemember(member) {
+    this.firegroup.child(firebase.auth().currentUser.uid).child(this.currentgroupname)
+      .child('members').orderByChild('uid').equalTo(member.uid).once('value', (snapshot) => {
+      snapshot.ref.remove().then(() => {
+        this.firegroup.child(member.uid).child(this.currentgroupname).remove().then(() => {
+          this.getintogroup(this.currentgroupname);
+        })
+      })
+    })
+  }
+
+
 }
