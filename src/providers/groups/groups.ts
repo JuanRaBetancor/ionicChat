@@ -123,5 +123,19 @@ export class GroupsProvider {
     })
   }
 
+  getgroupmembers() {
+    this.firegroup.child(firebase.auth().currentUser.uid).child(this.currentgroupname).once('value', (snapshot) => {
+      var tempdata = snapshot.val().owner;
+      this.firegroup.child(tempdata).child(this.currentgroupname).child('members').once('value', (snapshot) => {
+        var tempvar = snapshot.val();
+        for (var key in tempvar) {
+          this.currentgroup.push(tempvar[key]);
+        }
+      })
+    });
+    this.events.publish('gotmembers');
+  }
+
+
 
 }
