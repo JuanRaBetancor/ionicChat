@@ -12,6 +12,7 @@ import firebase from 'firebase';
 export class GroupsProvider {
   firegroup = firebase.database().ref('/groups');
   mygroups: Array<any> = [];
+  currentgroup: Array<any> = [];
   constructor(public events: Events) {
 
   }
@@ -48,5 +49,37 @@ export class GroupsProvider {
     })
 
   }
+
+  getintogroup(groupname) {
+    if (groupname != null) {
+      this.firegroup.child(firebase.auth().currentUser.uid).child(groupname).once('value', (snapshot) => {
+        if (snapshot.val() != null) {
+          var temp = snapshot.val().members;
+          this.currentgroup = [];
+          for (var key in temp) {
+            this.currentgroup.push(temp[key]);
+          }
+        }
+      })
+    }
+  }
+
+  getownership(groupname) {
+    var promise = new Promise((resolve, reject) => {
+      this.firegroup.child(firebase.auth().currentUser.uid).child(groupname).once('value', (snapshot) => {
+        var temp = snapshot.val().owner;
+        if (temp == firebase.auth().currentUser.uid) {
+          resolve(true);
+        }
+        else {
+          resolve(false);
+        }
+      }).catch((err) => {
+        reject(err);
+      })
+    });
+    return promise;
+  }
+
 
 }
