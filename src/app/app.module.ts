@@ -19,6 +19,7 @@ import { FileChooser } from '@ionic-native/file-chooser';
 import { FilePath } from '@ionic-native/file-path';
 import { RequestsProvider } from '../providers/requests/requests';
 import { ChatProvider } from '../providers/chat/chat';
+import { GroupsProvider } from '../providers/groups/groups';
 
 
 
@@ -48,7 +49,8 @@ import { ChatProvider } from '../providers/chat/chat';
     FileChooser,
     FilePath,
     RequestsProvider,
-    ChatProvider
+    ChatProvider,
+    GroupsProvider
   ]
 })
 export class AppModule {}
