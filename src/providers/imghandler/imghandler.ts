@@ -26,6 +26,11 @@ export class ImghandlerProvider {
   Outputs - The image url of the stored image.
 
    */
+
+
+
+
+
   uploadimage() {
     var promise = new Promise((resolve, reject) => {
       this.filechooser.open().then((url) => {
