@@ -27,14 +27,14 @@
         </ion-avatar>
         <div class="bubble me" *ngIf="item.sentby === buddy.uid">
           <h3 *ngIf="!imgornot[i]">{{item.message}}</h3>
-          <img src="{{item.message}}" *ngIf="imgornot[i]" imageViewer>
+          <img *ngIf="imgornot[i]" src="{{item.message}}" imageViewer>
         </div>
         <ion-avatar item-right *ngIf="item.sentby != buddy.uid">
           <img src="{{photoURL}}" imageViewer>
         </ion-avatar>
         <div class="bubblegreen you" *ngIf="item.sentby != buddy.uid">
           <h3 *ngIf="!imgornot[i]">{{item.message}}</h3>
-          <img src="{{item.message}}" *ngIf="imgornot[i]" imageViewer>
+          <img *ngIf="imgornot[i]" src="{{item.message}}" imageViewer>
         </div>
       </ion-item>
     </ion-list>

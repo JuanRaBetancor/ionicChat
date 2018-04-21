@@ -40,8 +40,8 @@ import { GroupsProvider } from '../providers/groups/groups';
     AngularFireModule.initializeApp(config),
     AngularFirestoreModule,
     AngularFireStorageModule,
-    AngularFireDatabaseModule,
-    IonicImageViewerModule
+    IonicImageViewerModule,
+    AngularFireDatabaseModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
