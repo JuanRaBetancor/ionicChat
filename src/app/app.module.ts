@@ -13,6 +13,13 @@ import { MyApp } from './app.component';
 import { AuthProvider } from '../providers/auth/auth';
 import { UserProvider } from '../providers/user/user';
 import { ImghandlerProvider } from '../providers/imghandler/imghandler';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireStorageModule } from 'angularfire2/storage';
+import { AngularFireDatabaseModule } from "angularfire2/database";
+import { Diagnostic } from '@ionic-native/diagnostic';
+import { Camera } from '@ionic-native/camera';
+import { ImageResizer } from '@ionic-native/image-resizer';
+import { IonicImageViewerModule } from 'ionic-img-viewer';
 
 import { File } from '@ionic-native/file';
 import { FileChooser } from '@ionic-native/file-chooser';
@@ -30,7 +37,11 @@ import { GroupsProvider } from '../providers/groups/groups';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp, {tabsPlacement: 'top'}),
-    AngularFireModule.initializeApp(config)
+    AngularFireModule.initializeApp(config),
+    AngularFirestoreModule,
+    AngularFireStorageModule,
+    AngularFireDatabaseModule,
+    IonicImageViewerModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -50,7 +61,10 @@ import { GroupsProvider } from '../providers/groups/groups';
     FilePath,
     RequestsProvider,
     ChatProvider,
-    GroupsProvider
+    GroupsProvider,
+    Camera,
+    Diagnostic,
+    ImageResizer
   ]
 })
 export class AppModule {}

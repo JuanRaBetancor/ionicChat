@@ -13,10 +13,10 @@
 
 <ion-content>
   <div class="profile-image">
-    <img src="{{imgurl}}">
+    <img src="{{photo}}" imageViewer>
   </div>
   <div>
-    <button ion-button round outline (click)="choose()">Choose an image</button> <!-- chooseimage()-->
+    <button ion-button round outline (click)="upload()">Choose an image</button> <!-- chooseimage()-->
   </div>
   <div [hidden]="!moveon">
     <button ion-button round outline (click)="proceed()">Skip this step</button>

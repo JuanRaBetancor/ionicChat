@@ -1,6 +1,7 @@
 import { Component, NgZone } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { ImghandlerProvider } from '../../providers/imghandler/imghandler';
+import { AngularFireStorage } from 'angularfire2/storage';
 import { UserProvider } from '../../providers/user/user';
 import { File } from "@ionic-native/file";
 import { FileChooser } from "@ionic-native/file-chooser";
@@ -20,14 +21,36 @@ import * as firebase from "firebase";
 export class ProfilepicPage {
   imgurl = 'https://firebasestorage.googleapis.com/v0/b/myapp-4eadd.appspot.com/o/chatterplace.png?alt=media&token=e51fa887-bfc6-48ff-87c6-e2c61976534e';
   moveon = true;
+  public photo = 'https://firebasestorage.googleapis.com/v0/b/myapp-4eadd.appspot.com/o/chatterplace.png?alt=media&token=e51fa887-bfc6-48ff-87c6-e2c61976534e';
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public imgservice: ImghandlerProvider,
               public zone: NgZone, public userservice: UserProvider, public loadingCtrl: LoadingController,
-              public fileChooser: FileChooser, public file: File) {
+              public fileChooser: FileChooser, public file: File, public storage: AngularFireStorage) {
   }
 
   ionViewDidLoad() {
   }
 
+  upload() {
+    //aqui subir la foto
+    //vamos a obviar como si hubiera un chat
+    this.imgservice.openActionSheet().then(async(image: string) => {
+      console.log("Comienza subida");
+      console.log(image);
+      let ref = this.storage.ref('chats/img1.jpg');
+      await ref.put(image);
+      ref.getDownloadURL().subscribe(url => {
+        console.log(url);
+        this.photo = url;
+        this.imgurl = url;
+        this.moveon = false;
+      });
+    }).catch(error => {
+      console.log("ERROR: " + JSON.stringify(error));
+    })
+  }
+
+  /*
   choose(){
     this.fileChooser.open().then((uri)=>{
       alert(uri);
@@ -55,7 +78,7 @@ export class ProfilepicPage {
     }).catch((error)=>{
       alert(JSON.stringify(error))
     })
-  }
+  }*/
 
   chooseimage() {
     let loader = this.loadingCtrl.create({
@@ -74,7 +97,7 @@ export class ProfilepicPage {
   updateproceed() {
     let loader = this.loadingCtrl.create({
       content: 'Please wait'
-    })
+    });
     loader.present();
     this.userservice.updateimage(this.imgurl).then((res: any) => {
       loader.dismiss();
