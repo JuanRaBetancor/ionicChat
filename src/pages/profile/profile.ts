@@ -1,5 +1,5 @@
 import { Component, NgZone } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 import { ImghandlerProvider } from '../../providers/imghandler/imghandler';
 import { UserProvider } from '../../providers/user/user';
 import { AngularFireStorage } from 'angularfire2/storage';
@@ -21,7 +21,7 @@ export class ProfilePage {
   displayName: string;
   constructor(public navCtrl: NavController, public navParams: NavParams,
               public userservice: UserProvider, public zone: NgZone, public alertCtrl: AlertController,
-              public imghandler: ImghandlerProvider, public file: File, public storage: AngularFireStorage) {
+              public imghandler: ImghandlerProvider, public file: File, public storage: AngularFireStorage, public loadingCtrl: LoadingController) {
   }
 
   ionViewWillEnter() {
@@ -43,16 +43,21 @@ export class ProfilePage {
 
   editimage() {
     let statusalert = this.alertCtrl.create({
-      buttons: ['okay']
+      buttons: ['OK']
+    });
+    let loader = this.loadingCtrl.create({
+      content: 'Please wait'
     });
     this.imghandler.openActionSheet().then(async(image: string) => {
       console.log("Comienza subida");
+      loader.present();
       console.log(image);
       var d = new Date();
       var n = d.getTime();
       var newFileName = 'temp'+  n + ".jpg";
       let ref = this.storage.ref('chats/'+newFileName);
       await ref.put(image);
+      loader.dismiss();
       ref.getDownloadURL().subscribe(url => {
         console.log(url);
         this.userservice.updateimage(url).then((res: any) => {
@@ -70,7 +75,8 @@ export class ProfilePage {
           statusalert.present();
       });
     })
-  })
+  });
+    loader.dismiss();
   }
 
 

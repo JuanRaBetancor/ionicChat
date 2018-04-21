@@ -34,7 +34,11 @@ export class ProfilepicPage {
   upload() {
     //aqui subir la foto
     //vamos a obviar como si hubiera un chat
+    let loader = this.loadingCtrl.create({
+      content: 'Please wait'
+    });
     this.imgservice.openActionSheet().then(async(image: string) => {
+      loader.present();
       console.log("Comienza subida");
       console.log(image);
       var d = new Date();
@@ -42,6 +46,7 @@ export class ProfilepicPage {
       var newFileName = 'temp'+  n + ".jpg";
       let ref = this.storage.ref('chats/'+newFileName);
       await ref.put(image);
+      loader.dismiss();
       ref.getDownloadURL().subscribe(url => {
         console.log(url);
         this.photo = url;
