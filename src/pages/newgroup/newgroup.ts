@@ -19,7 +19,7 @@ import { AngularFireStorage } from 'angularfire2/storage';
 export class NewgroupPage {
   newgroup = {
     groupName: 'GroupName',
-    groupPic: 'https://firebasestorage.googleapis.com/v0/b/myapp-4eadd.appspot.com/o/chatterplace.png?alt=media&token=e51fa887-bfc6-48ff-87c6-e2c61976534e'
+    groupPic: 'https://image.freepik.com/free-icon/multiple-users-silhouette_318-49546.jpg'
   };
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController,
               public groupservice: GroupsProvider, public imghandler: ImghandlerProvider,

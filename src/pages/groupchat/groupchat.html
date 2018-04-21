@@ -29,7 +29,7 @@
     <ion-list no-lines>
       <ion-item *ngFor = "let item of allgroupmsgs; let i = index" text-wrap>
         <ion-avatar item-left *ngIf="item.sentby != alignuid">
-          <img src="{{photoURL}}">
+          <img src="{{item.photoURL}}">
         </ion-avatar>
         <div class="bubble me" *ngIf="item.sentby != alignuid">
           <h6 style="color: mediumpurple;">{{item.displayName}}</h6>
@@ -39,7 +39,7 @@
           <!--<p><small>{{item.timestamp}}</small></p>-->
         </div>
         <ion-avatar item-right *ngIf="item.sentby === alignuid">
-          <img src="{{item.photoURL}}">
+          <img src="{{photoURL}}">
         </ion-avatar>
         <div class="bubblegreen you" *ngIf="item.sentby === alignuid">
           <h6 style="color: mediumvioletred;">{{item.displayName}}</h6>
