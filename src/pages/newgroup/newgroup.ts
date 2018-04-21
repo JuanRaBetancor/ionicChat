@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 import { GroupsProvider } from '../../providers/groups/groups';
 import { ImghandlerProvider } from '../../providers/imghandler/imghandler';
+import { AngularFireStorage } from 'angularfire2/storage';
+
 
 /**
  * Generated class for the NewgroupPage page.
@@ -18,10 +20,10 @@ export class NewgroupPage {
   newgroup = {
     groupName: 'GroupName',
     groupPic: 'https://firebasestorage.googleapis.com/v0/b/myapp-4eadd.appspot.com/o/chatterplace.png?alt=media&token=e51fa887-bfc6-48ff-87c6-e2c61976534e'
-  }
+  };
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController,
               public groupservice: GroupsProvider, public imghandler: ImghandlerProvider,
-              public loadingCtrl: LoadingController) {
+              public loadingCtrl: LoadingController, public storage: AngularFireStorage) {
   }
 
   ionViewDidLoad() {
@@ -40,16 +42,25 @@ export class NewgroupPage {
       let loader = this.loadingCtrl.create({
         content: 'Loading, please wait..'
       });
-      loader.present();
-      this.imghandler.grouppicstore(this.newgroup.groupName).then((res: any) => {
+      this.imghandler.openActionSheet().then(async(image: string) => {
+        loader.present();
+        console.log("Comienza subida");
+        console.log(image);
+        var d = new Date();
+        var n = d.getTime();
+        var newFileName = 'temp'+  n + ".jpg";
+        let ref = this.storage.ref('groups/'+newFileName);
+        await ref.put(image);
         loader.dismiss();
-        if(res)
-          this.newgroup.groupPic = res;
-      }).catch((err) => {
-        alert(err);
+        console.log("Termina subida");
+        ref.getDownloadURL().subscribe(url => {
+          console.log(url);
+          this.newgroup.groupPic = url;
+        });
+      }).catch(error => {
+        console.log("ERROR: " + JSON.stringify(error));
       })
     }
-
   }
 
   creategroup() {

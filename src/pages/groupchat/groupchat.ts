@@ -2,6 +2,8 @@ import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, ActionSheetController, LoadingController, Content, Events } from 'ionic-angular';
 import { GroupsProvider } from '../../providers/groups/groups';
 import { ImghandlerProvider } from '../../providers/imghandler/imghandler';
+import { AngularFireStorage } from 'angularfire2/storage';
+import { File } from "@ionic-native/file";
 import firebase from 'firebase';
 
 /**
@@ -25,7 +27,8 @@ export class GroupchatPage {
   photoURL;
   imgornot;
   constructor(public navCtrl: NavController, public navParams: NavParams, public groupservice: GroupsProvider,
-              public actionSheet: ActionSheetController, public events: Events, public imgstore: ImghandlerProvider, public loadingCtrl: LoadingController) {
+              public actionSheet: ActionSheetController, public events: Events, public imgstore: ImghandlerProvider, public loadingCtrl: LoadingController,
+              public file: File, public storage: AngularFireStorage) {
     this.alignuid = firebase.auth().currentUser.uid;
     this.photoURL = firebase.auth().currentUser.photoURL;
     this.groupName = this.navParams.get('groupName');
@@ -82,6 +85,35 @@ export class GroupchatPage {
       })
     }).catch((err) => {
       alert(err);
+      loader.dismiss();
+    })
+  }
+
+  sendPic() {
+    //aqui subir la foto
+    //vamos a obviar como si hubiera un chat
+    let loader = this.loadingCtrl.create({
+      content: 'Please wait'
+    });
+    this.imgstore.openActionSheet().then(async(image: string) => {
+      loader.present();
+      console.log("Comienza subida");
+      console.log(image);
+      var d = new Date();
+      var n = d.getTime();
+      var newFileName = 'temp'+  n + ".jpg";
+      let ref = this.storage.ref('chats/'+newFileName);
+      await ref.put(image);
+      ref.getDownloadURL().subscribe(url => {
+        console.log(url);
+        this.groupservice.addgroupmsg(url).then(() => {
+          this.scrollto();
+          this.newmessage = '';
+        });
+        loader.dismiss();
+      });
+    }).catch(error => {
+      console.log("ERROR: " + JSON.stringify(error));
       loader.dismiss();
     })
   }
