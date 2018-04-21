@@ -23,18 +23,18 @@
     <ion-list no-lines>
       <ion-item *ngFor = "let item of allmessages; let i = index" text-wrap>
         <ion-avatar item-left *ngIf="item.sentby === buddy.uid">
-          <img src="{{buddy.photoURL}}">
+          <img src="{{buddy.photoURL}}" imageViewer>
         </ion-avatar>
         <div class="bubble me" *ngIf="item.sentby === buddy.uid">
           <h3 *ngIf="!imgornot[i]">{{item.message}}</h3>
-          <img src="{{item.message}}" *ngIf="imgornot[i]">
+          <img src="{{item.message}}" *ngIf="imgornot[i]" imageViewer>
         </div>
         <ion-avatar item-right *ngIf="item.sentby != buddy.uid">
-          <img src="{{photoURL}}">
+          <img src="{{photoURL}}" imageViewer>
         </ion-avatar>
         <div class="bubblegreen you" *ngIf="item.sentby != buddy.uid">
           <h3 *ngIf="!imgornot[i]">{{item.message}}</h3>
-          <img src="{{item.message}}" *ngIf="imgornot[i]">
+          <img src="{{item.message}}" *ngIf="imgornot[i]" imageViewer>
         </div>
       </ion-item>
     </ion-list>

@@ -85,11 +85,11 @@ export class BuddychatPage {
   sendPic() {
     //aqui subir la foto
     //vamos a obviar como si hubiera un chat
-    /*let loader = this.loadingCtrl.create({
+    let loader = this.loadingCtrl.create({
       content: 'Please wait'
     });
-    loader.present();*/
     this.imgstore.openActionSheet().then(async(image: string) => {
+      loader.present();
       console.log("Comienza subida");
       console.log(image);
       var d = new Date();
@@ -103,14 +103,12 @@ export class BuddychatPage {
           this.scrollto();
           this.newmessage = '';
         });
-        //loader.dismiss();
+        loader.dismiss();
       });
     }).catch(error => {
       console.log("ERROR: " + JSON.stringify(error));
-      //loader.dismiss();
+      loader.dismiss();
     })
   }
-
-
 
 }
