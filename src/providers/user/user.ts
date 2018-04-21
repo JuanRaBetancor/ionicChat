@@ -36,7 +36,7 @@ export class UserProvider {
       }).catch((err) => {
         reject(err);
       })
-    })
+    });
     return promise;
   }
 
@@ -48,7 +48,7 @@ export class UserProvider {
       }).catch((err) => {
         reject(err);
       })
-    })
+    });
     return promise;
   }
 
@@ -70,7 +70,7 @@ export class UserProvider {
       }).catch((err) => {
         reject(err);
       })
-    })
+    });
     return promise;
   }
 
@@ -81,7 +81,7 @@ export class UserProvider {
       }).catch((err) => {
         reject(err);
       })
-    })
+    });
     return promise;
   }
 

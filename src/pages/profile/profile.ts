@@ -2,6 +2,8 @@ import { Component, NgZone } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { ImghandlerProvider } from '../../providers/imghandler/imghandler';
 import { UserProvider } from '../../providers/user/user';
+import { AngularFireStorage } from 'angularfire2/storage';
+import { File } from "@ionic-native/file";
 import firebase from 'firebase';
 /**
  * Generated class for the ProfilePage page.
@@ -19,12 +21,14 @@ export class ProfilePage {
   displayName: string;
   constructor(public navCtrl: NavController, public navParams: NavParams,
               public userservice: UserProvider, public zone: NgZone, public alertCtrl: AlertController,
-              public imghandler: ImghandlerProvider) {
+              public imghandler: ImghandlerProvider, public file: File, public storage: AngularFireStorage) {
   }
 
   ionViewWillEnter() {
     this.loaduserdetails();
   }
+
+
 
   loaduserdetails() {
     this.userservice.getuserdetails().then((res: any) => {
@@ -35,27 +39,64 @@ export class ProfilePage {
     })
   }
 
+
+
   editimage() {
     let statusalert = this.alertCtrl.create({
       buttons: ['okay']
     });
-    this.imghandler.uploadimage().then((url: any) => {
-      this.userservice.updateimage(url).then((res: any) => {
-        if (res.success) {
-          statusalert.setTitle('Updated');
-          statusalert.setSubTitle('Your profile pic has been changed successfully!!');
+    this.imghandler.openActionSheet().then(async(image: string) => {
+      console.log("Comienza subida");
+      console.log(image);
+      var d = new Date();
+      var n = d.getTime();
+      var newFileName = 'temp'+  n + ".jpg";
+      let ref = this.storage.ref('chats/'+newFileName);
+      await ref.put(image);
+      ref.getDownloadURL().subscribe(url => {
+        console.log(url);
+        this.userservice.updateimage(url).then((res: any) => {
+          if (res.success) {
+            statusalert.setTitle('Updated');
+            statusalert.setSubTitle('Your profile pic has been changed successfully!!');
+            statusalert.present();
+            this.zone.run(() => {
+              this.avatar = url;
+            })
+          }
+        }).catch((err) => {
+          statusalert.setTitle('Failed');
+          statusalert.setSubTitle('Your profile pic was not changed');
           statusalert.present();
-          this.zone.run(() => {
-            this.avatar = url;
-          })
-        }
-      }).catch((err) => {
-        statusalert.setTitle('Failed');
-        statusalert.setSubTitle('Your profile pic was not changed');
-        statusalert.present();
-      })
+      });
     })
+  })
   }
+
+
+
+
+/*editimage() {
+  let statusalert = this.alertCtrl.create({
+    buttons: ['okay']
+  });
+  this.imghandler.uploadimage().then((url: any) => {
+    this.userservice.updateimage(url).then((res: any) => {
+      if (res.success) {
+        statusalert.setTitle('Updated');
+        statusalert.setSubTitle('Your profile pic has been changed successfully!!');
+        statusalert.present();
+        this.zone.run(() => {
+          this.avatar = url;
+        })
+      }
+    }).catch((err) => {
+      statusalert.setTitle('Failed');
+      statusalert.setSubTitle('Your profile pic was not changed');
+      statusalert.present();
+    })
+  })
+}*/
 
   editname() {
     let statusalert = this.alertCtrl.create({

@@ -37,7 +37,10 @@ export class ProfilepicPage {
     this.imgservice.openActionSheet().then(async(image: string) => {
       console.log("Comienza subida");
       console.log(image);
-      let ref = this.storage.ref('chats/img1.jpg');
+      var d = new Date();
+      var n = d.getTime();
+      var newFileName = 'temp'+  n + ".jpg";
+      let ref = this.storage.ref('chats/'+newFileName);
       await ref.put(image);
       ref.getDownloadURL().subscribe(url => {
         console.log(url);
