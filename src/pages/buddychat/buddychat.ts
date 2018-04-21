@@ -2,6 +2,9 @@ import { Component, ViewChild, NgZone } from '@angular/core';
 import { IonicPage, NavController, NavParams, Events, Content, LoadingController } from 'ionic-angular';
 import { ChatProvider } from '../../providers/chat/chat';
 import { ImghandlerProvider } from '../../providers/imghandler/imghandler';
+import { AngularFireStorage } from 'angularfire2/storage';
+import { File } from "@ionic-native/file";
+
 import firebase from 'firebase';
 /**
  * Generated class for the BuddychatPage page.
@@ -23,7 +26,7 @@ export class BuddychatPage {
   imgornot;
   constructor(public navCtrl: NavController, public navParams: NavParams, public chatservice: ChatProvider,
               public events: Events, public zone: NgZone, public loadingCtrl: LoadingController,
-              public imgstore: ImghandlerProvider) {
+              public imgstore: ImghandlerProvider, public file: File, public storage: AngularFireStorage) {
     this.buddy = this.chatservice.buddy;
     this.photoURL = firebase.auth().currentUser.photoURL;
     this.scrollto();
@@ -77,4 +80,37 @@ export class BuddychatPage {
       loader.dismiss();
     })
   }
+
+
+  sendPic() {
+    //aqui subir la foto
+    //vamos a obviar como si hubiera un chat
+    /*let loader = this.loadingCtrl.create({
+      content: 'Please wait'
+    });
+    loader.present();*/
+    this.imgstore.openActionSheet().then(async(image: string) => {
+      console.log("Comienza subida");
+      console.log(image);
+      var d = new Date();
+      var n = d.getTime();
+      var newFileName = 'temp'+  n + ".jpg";
+      let ref = this.storage.ref('chats/'+newFileName);
+      await ref.put(image);
+      ref.getDownloadURL().subscribe(url => {
+        console.log(url);
+        this.chatservice.addnewmessage(url).then(() => {
+          this.scrollto();
+          this.newmessage = '';
+        });
+        //loader.dismiss();
+      });
+    }).catch(error => {
+      console.log("ERROR: " + JSON.stringify(error));
+      //loader.dismiss();
+    })
+  }
+
+
+
 }
