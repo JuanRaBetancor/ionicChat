@@ -4,6 +4,7 @@ import { ChatProvider } from '../../providers/chat/chat';
 import { ImghandlerProvider } from '../../providers/imghandler/imghandler';
 import { AngularFireStorage } from 'angularfire2/storage';
 import { File } from "@ionic-native/file";
+import { ImageViewerController } from 'ionic-img-viewer';
 
 import firebase from 'firebase';
 /**
@@ -24,10 +25,13 @@ export class BuddychatPage {
   allmessages = [];
   photoURL;
   imgornot;
+  _imageViewerCtrl: ImageViewerController;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public chatservice: ChatProvider,
               public events: Events, public zone: NgZone, public loadingCtrl: LoadingController,
-              public imgstore: ImghandlerProvider, public file: File, public storage: AngularFireStorage) {
+              public imgstore: ImghandlerProvider, public file: File, public storage: AngularFireStorage, public imageViewerCtrl: ImageViewerController) {
     this.buddy = this.chatservice.buddy;
+    this._imageViewerCtrl = imageViewerCtrl;
     this.photoURL = firebase.auth().currentUser.photoURL;
     this.scrollto();
     this.events.subscribe('newmessage', () => {
@@ -46,6 +50,15 @@ export class BuddychatPage {
 
     })
   }
+
+  presentImage(myImage) {
+    const imageViewer = this._imageViewerCtrl.create(myImage);
+    imageViewer.present();
+
+    //setTimeout(() => imageViewer.dismiss(), 1000);
+    //imageViewer.onDidDismiss(() => alert('Viewer dismissed'));
+  }
+
 
   addmessage() {
     this.chatservice.addnewmessage(this.newmessage).then(() => {
@@ -110,5 +123,7 @@ export class BuddychatPage {
       loader.dismiss();
     })
   }
+
+
 
 }

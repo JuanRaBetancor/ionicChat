@@ -29,22 +29,22 @@
     <ion-list no-lines>
       <ion-item *ngFor = "let item of allgroupmsgs; let i = index" text-wrap>
         <ion-avatar item-left *ngIf="item.sentby != alignuid">
-          <img src="{{item.photoURL}}">
+          <img src="{{item.photoURL}}" #myImage (click)="presentImage(myImage)">
         </ion-avatar>
         <div class="bubble me" *ngIf="item.sentby != alignuid">
           <h6 style="color: mediumpurple;">{{item.displayName}}</h6>
           <h3 *ngIf="!imgornot[i]">{{item.message}}</h3>
-          <img src="{{item.message}}" *ngIf="imgornot[i]">
+          <img src="{{item.message}}" *ngIf="imgornot[i]" #myImage (click)="presentImage(myImage)">
           <p><small>{{item.timestamp}}</small></p>
           <!--<p><small>{{item.timestamp}}</small></p>-->
         </div>
         <ion-avatar item-right *ngIf="item.sentby === alignuid">
-          <img src="{{photoURL}}">
+          <img src="{{photoURL}}" #myImage (click)="presentImage(myImage)">
         </ion-avatar>
         <div class="bubblegreen you" *ngIf="item.sentby === alignuid">
           <h6 style="color: mediumvioletred;">{{item.displayName}}</h6>
           <h3 *ngIf="!imgornot[i]">{{item.message}}</h3>
-          <img src="{{item.message}}" *ngIf="imgornot[i]">
+          <img src="{{item.message}}" *ngIf="imgornot[i]" #myImage (click)="presentImage(myImage)">
           <p><small>{{item.timestamp}}</small></p>
           <!--<p><small>{{item.timestamp}}</small></p>-->
         </div>

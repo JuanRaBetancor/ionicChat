@@ -20,7 +20,7 @@
       <ion-item-sliding *ngFor="let key of filteredusers">
         <ion-item >
           <ion-avatar item-left>
-            <img src="{{key.photoURL}}">
+            <img src="{{key.photoURL}}" #myImage (click)="presentImage(myImage)">
           </ion-avatar>
           <h2>{{key.displayName}}</h2>
         </ion-item>

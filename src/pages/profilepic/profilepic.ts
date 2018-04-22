@@ -5,7 +5,9 @@ import { AngularFireStorage } from 'angularfire2/storage';
 import { UserProvider } from '../../providers/user/user';
 import { File } from "@ionic-native/file";
 import { FileChooser } from "@ionic-native/file-chooser";
-import * as firebase from "firebase";
+//import * as firebase from "firebase";
+import { ImageViewerController } from 'ionic-img-viewer';
+
 
 /**
  * Generated class for the ProfilepicPage page.
@@ -21,11 +23,13 @@ import * as firebase from "firebase";
 export class ProfilepicPage {
   imgurl = 'https://firebasestorage.googleapis.com/v0/b/myapp-4eadd.appspot.com/o/chatterplace.png?alt=media&token=e51fa887-bfc6-48ff-87c6-e2c61976534e';
   moveon = true;
+  _imageViewerCtrl: ImageViewerController;
   public photo = 'https://firebasestorage.googleapis.com/v0/b/myapp-4eadd.appspot.com/o/chatterplace.png?alt=media&token=e51fa887-bfc6-48ff-87c6-e2c61976534e';
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public imgservice: ImghandlerProvider,
               public zone: NgZone, public userservice: UserProvider, public loadingCtrl: LoadingController,
-              public fileChooser: FileChooser, public file: File, public storage: AngularFireStorage) {
+              public fileChooser: FileChooser, public file: File, public storage: AngularFireStorage, public imageViewerCtrl: ImageViewerController) {
+    this._imageViewerCtrl = imageViewerCtrl;
   }
 
   ionViewDidLoad() {
@@ -56,6 +60,15 @@ export class ProfilepicPage {
     }).catch(error => {
       console.log("ERROR: " + JSON.stringify(error));
     })
+  }
+
+
+  presentImage(myImage) {
+    const imageViewer = this._imageViewerCtrl.create(myImage);
+    imageViewer.present();
+
+    //setTimeout(() => imageViewer.dismiss(), 1000);
+    //imageViewer.onDidDismiss(() => alert('Viewer dismissed'));
   }
 
   /*

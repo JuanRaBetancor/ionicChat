@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Events, LoadingController } from 'ionic-angular';
 import { GroupsProvider } from '../../providers/groups/groups';
+import { ImageViewerController } from 'ionic-img-viewer';
+
 /**
  * Generated class for the GroupsPage page.
  *
@@ -14,8 +16,10 @@ import { GroupsProvider } from '../../providers/groups/groups';
 })
 export class GroupsPage {
   allmygroups;
+  _imageViewerCtrl: ImageViewerController;
   constructor(public navCtrl: NavController, public navParams: NavParams, public events: Events,
-              public loadingCtrl: LoadingController, public groupservice: GroupsProvider) {
+              public loadingCtrl: LoadingController, public groupservice: GroupsProvider, public imageViewerCtrl: ImageViewerController) {
+    this._imageViewerCtrl = imageViewerCtrl;
   }
 
   ionViewWillEnter() {
@@ -32,6 +36,14 @@ export class GroupsPage {
 
   ionViewDidLeave() {
     this.events.unsubscribe('allmygroups');
+  }
+
+  presentImage(myImage) {
+    const imageViewer = this._imageViewerCtrl.create(myImage);
+    imageViewer.present();
+
+    //setTimeout(() => imageViewer.dismiss(), 1000);
+    //imageViewer.onDidDismiss(() => alert('Viewer dismissed'));
   }
 
   addgroup() {

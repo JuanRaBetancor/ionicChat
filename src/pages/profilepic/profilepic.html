@@ -13,7 +13,7 @@
 
 <ion-content>
   <div class="profile-image">
-    <img src="{{photo}}" imageViewer/>
+    <img src="{{photo}}" #myImage (click)="presentImage(myImage)">
   </div>
   <div>
     <button ion-button round outline (click)="upload()">Choose an image</button> <!-- chooseimage()-->

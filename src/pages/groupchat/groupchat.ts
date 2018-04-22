@@ -5,6 +5,8 @@ import { ImghandlerProvider } from '../../providers/imghandler/imghandler';
 import { AngularFireStorage } from 'angularfire2/storage';
 import { File } from "@ionic-native/file";
 import firebase from 'firebase';
+import { ImageViewerController } from 'ionic-img-viewer';
+
 
 /**
  * Generated class for the GroupchatPage page.
@@ -26,10 +28,12 @@ export class GroupchatPage {
   alignuid;
   photoURL;
   imgornot;
+  _imageViewerCtrl: ImageViewerController;
   constructor(public navCtrl: NavController, public navParams: NavParams, public groupservice: GroupsProvider,
               public actionSheet: ActionSheetController, public events: Events, public imgstore: ImghandlerProvider, public loadingCtrl: LoadingController,
-              public file: File, public storage: AngularFireStorage) {
+              public file: File, public storage: AngularFireStorage, public imageViewerCtrl: ImageViewerController) {
     this.alignuid = firebase.auth().currentUser.uid;
+    this._imageViewerCtrl = imageViewerCtrl;
     this.photoURL = firebase.auth().currentUser.photoURL;
     this.groupName = this.navParams.get('groupName');
     this.groupservice.getownership(this.groupName).then((res) => {
@@ -71,6 +75,15 @@ export class GroupchatPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad GroupchatPage');
   }
+
+  presentImage(myImage) {
+    const imageViewer = this._imageViewerCtrl.create(myImage);
+    imageViewer.present();
+
+    //setTimeout(() => imageViewer.dismiss(), 1000);
+    //imageViewer.onDidDismiss(() => alert('Viewer dismissed'));
+  }
+
 
   sendpicmsg() {
     let loader = this.loadingCtrl.create({

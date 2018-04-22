@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { File } from '@ionic-native/file';
+//import { File } from '@ionic-native/file';
 import { FileChooser } from '@ionic-native/file-chooser';
-import { FilePath } from '@ionic-native/file-path';
+//import { FilePath } from '@ionic-native/file-path';
 import firebase from 'firebase';
 import { Camera, CameraOptions } from '@ionic-native/camera';
-import { ActionSheetController, Platform } from 'ionic-angular';
+import { ActionSheetController } from 'ionic-angular';
 
 /*
   Generated class for the ImghandlerProvider provider.
@@ -13,7 +13,7 @@ import { ActionSheetController, Platform } from 'ionic-angular';
   for more info on providers and Angular 2 DI.
 */
 
-declare var cordova: any;
+//declare var cordova: any;
 
 @Injectable()
 export class ImghandlerProvider {
@@ -21,10 +21,7 @@ export class ImghandlerProvider {
   firestore = firebase.storage();
   constructor(public filechooser: FileChooser,
               private actionSheetCtrl: ActionSheetController,
-              private platform: Platform,
-              private camera: Camera,
-              private file: File,
-              private filepath: FilePath) {
+              private camera: Camera) {
   }
 
 

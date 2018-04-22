@@ -4,6 +4,8 @@ import { UserProvider } from '../../providers/user/user';
 import { RequestsProvider } from '../../providers/requests/requests';
 import { connreq } from '../../models/interfaces/request';
 import firebase from 'firebase';
+import { ImageViewerController } from 'ionic-img-viewer';
+
 /**
  * Generated class for the BuddiesPage page.
  *
@@ -17,11 +19,13 @@ import firebase from 'firebase';
 })
 export class BuddiesPage {
   newrequest = {} as connreq;
+  _imageViewerCtrl: ImageViewerController;
   temparr = [];
   filteredusers = [];
   constructor(public navCtrl: NavController, public navParams: NavParams,
               public userservice: UserProvider, public alertCtrl: AlertController,
-              public requestservice: RequestsProvider) {
+              public requestservice: RequestsProvider, public imageViewerCtrl: ImageViewerController) {
+    this._imageViewerCtrl = imageViewerCtrl;
     this.userservice.getallusers().then((res: any) => {
       this.filteredusers = res;
       this.temparr = res;
@@ -30,6 +34,14 @@ export class BuddiesPage {
 
   ionViewDidLoad() {
 
+  }
+
+  presentImage(myImage) {
+    const imageViewer = this._imageViewerCtrl.create(myImage);
+    imageViewer.present();
+
+    //setTimeout(() => imageViewer.dismiss(), 1000);
+    //imageViewer.onDidDismiss(() => alert('Viewer dismissed'));
   }
 
   searchuser(searchbar) {
