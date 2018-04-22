@@ -11,11 +11,13 @@ import firebase from 'firebase';
 @Injectable()
 export class GroupsProvider {
   firegroup = firebase.database().ref('/groups');
+  fireuser = firebase.database().ref('/chatusers');
   mygroups: Array<any> = [];
   currentgroup: Array<any> = [];
   currentgroupname;
   grouppic;
   groupmsgs;
+  ownergroup;
   constructor(public events: Events) {
 
   }
@@ -44,7 +46,7 @@ export class GroupsProvider {
           var newgroup = {
             groupName: key,
             groupimage: temp[key].groupimage
-          }
+          };
           this.mygroups.push(newgroup);
         }
       }
@@ -73,6 +75,10 @@ export class GroupsProvider {
     var promise = new Promise((resolve, reject) => {
       this.firegroup.child(firebase.auth().currentUser.uid).child(groupname).once('value', (snapshot) => {
         var temp = snapshot.val().owner;
+        var ownerid = snapshot.val().owner;
+        this.fireuser.child(ownerid).once('value', (snapshot) => {
+          this.ownergroup = snapshot.val();
+        });
         if (temp == firebase.auth().currentUser.uid) {
           resolve(true);
         }
@@ -96,6 +102,25 @@ export class GroupsProvider {
     })
 
   }
+
+
+  getgroupowner() {
+    return new Promise((resolve, reject) => {
+      this.firegroup.child(firebase.auth().currentUser.uid).child(this.currentgroupname).once('value', (snapshot) => {
+        var owner = snapshot.val().owner;
+        this.fireuser.child(owner).once('value', (snapshot) => {
+          this.ownergroup = snapshot.val().displayName;
+          resolve(this.ownergroup);
+          return Promise;
+        })
+      }).catch((err) => {
+        reject(err);
+        return Promise;
+      })
+    });
+  }
+
+
 
   addmember(newmember) {
     this.firegroup.child(firebase.auth().currentUser.uid).child(this.currentgroupname).child('members').push(newmember).then(() => {

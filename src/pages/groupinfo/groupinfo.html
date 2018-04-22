@@ -18,6 +18,13 @@
     <ion-list-header>
       Group Members
     </ion-list-header>
+    <ion-item>
+      <ion-avatar item-left>
+        <img src="{{logoowner}}">
+      </ion-avatar>
+      <h2>{{groupowner}}</h2>
+      <p>Owner</p>
+    </ion-item>
     <ion-item *ngFor="let item of groupmembers">
       <ion-avatar item-left>
         <img src="{{item.photoURL}}">
