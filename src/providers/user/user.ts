@@ -58,7 +58,7 @@ export class UserProvider {
         displayName: this.afireauth.auth.currentUser.displayName,
         photoURL: imageurl
       }).then(() => {
-        firebase.database().ref('/users/' + firebase.auth().currentUser.uid).update({
+        this.firedata.child(firebase.auth().currentUser.uid).update({
           displayName: this.afireauth.auth.currentUser.displayName,
           photoURL: imageurl,
           uid: firebase.auth().currentUser.uid
