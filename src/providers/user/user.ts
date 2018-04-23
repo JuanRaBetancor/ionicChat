@@ -107,6 +107,18 @@ export class UserProvider {
     return promise;
   }
 
+  deleteuser(){
+    var promise = new Promise((resolve, reject) => {
+      var user = this.afireauth.auth.currentUser;
+      user.delete().then(function () {
+        resolve({success:true});
+      }).catch(function (error) {
+        reject(error);
+      });
+    });
+    return promise;
+  }
+
 
   getallusers() {
     var promise = new Promise((resolve, reject) => {

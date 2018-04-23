@@ -156,5 +156,46 @@ export class ProfilePage {
     })
   }
 
+  removeuser(){
+    let statusalert = this.alertCtrl.create({
+      buttons: ['okay']
+    });
+    let alert = this.alertCtrl.create({
+      title: 'Warning!',
+      message: 'Do you want to remove yout account?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Accept',
+          handler: () => {
+            console.log('Accept clicked');
+            this.userservice.deleteuser().then((res: any) => {
+              if (res.success) {
+                statusalert.setTitle('Removed');
+                statusalert.setSubTitle('Your account was successfully removed!!');
+                statusalert.present();
+                this.navCtrl.parent.parent.setRoot('LoginPage');
+              }
+
+              else {
+                statusalert.setTitle('Failed');
+                statusalert.setSubTitle('Your account was not removed');
+                statusalert.present();
+              }
+
+            })
+          }
+        }
+      ]
+    });
+    alert.present();
+
+  }
 
 }
