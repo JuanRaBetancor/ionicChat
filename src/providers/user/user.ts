@@ -85,8 +85,20 @@ export class UserProvider {
     return promise;
   }
 
-  updatedisplayname(newname) {
+  updateemail(newemail){
     var promise = new Promise((resolve, reject) => {
+      var user = this.afireauth.auth.currentUser;
+      user.updateEmail(newemail).then(function() {
+        resolve({success:true});
+      }).catch(function(error) {
+        reject(error);
+      });
+    });
+    return promise;
+  }
+
+  updatedisplayname(newname) {
+    var promise = new Promise((resolve, reject) => {1
       this.afireauth.auth.currentUser.updateProfile({
         displayName: newname,
         photoURL: this.afireauth.auth.currentUser.photoURL

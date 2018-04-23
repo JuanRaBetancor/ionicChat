@@ -19,16 +19,17 @@ import firebase from 'firebase';
 export class ProfilePage {
   avatar: string;
   displayName: string;
+  email: string;
+  user = firebase.auth().currentUser;
   constructor(public navCtrl: NavController, public navParams: NavParams,
               public userservice: UserProvider, public zone: NgZone, public alertCtrl: AlertController,
               public imghandler: ImghandlerProvider, public file: File, public storage: AngularFireStorage, public loadingCtrl: LoadingController) {
+    this.email = this.user.email;
   }
 
   ionViewWillEnter() {
     this.loaduserdetails();
   }
-
-
 
   loaduserdetails() {
     this.userservice.getuserdetails().then((res: any) => {
@@ -39,7 +40,52 @@ export class ProfilePage {
     })
   }
 
+  editemail(){
+    let statusalert = this.alertCtrl.create({
+      buttons: ['OK']
+    });
+    let alert = this.alertCtrl.create({
+      title: 'Edit Email',
+      inputs: [{
+        name: 'newemail',
+        type: 'email',
+        placeholder: 'New email'
+      }],
+      buttons: [{
+        text: 'Cancel',
+        role: 'cancel',
+        handler: data => {
 
+        }
+      },
+        {
+          text: 'Edit',
+          handler: data => {
+            if (data.newemail) {
+              this.userservice.updateemail(data.newemail).then((res: any) => {
+                if (res.success) {
+                  statusalert.setTitle('Updated');
+                  statusalert.setSubTitle('Your email has been changed successfully!!');
+                  statusalert.present();
+                  this.zone.run(() => {
+                    this.email = data.newemail;
+                  })
+                }
+
+                else {
+                  statusalert.setTitle('Failed');
+                  statusalert.setSubTitle('Your email was not changed');
+                  statusalert.present();
+                }
+
+              })
+            }
+          }
+
+        }]
+    });
+    alert.present();
+  }
 
   editimage() {
     let statusalert = this.alertCtrl.create({
