@@ -40,6 +40,66 @@ export class ProfilePage {
     })
   }
 
+  changepassword(){
+    let statusalert = this.alertCtrl.create({
+      buttons: ['OK']
+    });
+    let alert = this.alertCtrl.create({
+      title: 'Edit Password',
+      inputs: [
+        {name: 'newpass',
+          type: 'password',
+          placeholder: 'New password'},
+        {name: 'repnewpass',
+          type: 'password',
+          placeholder: 'Repeat new password'}],
+      buttons: [{
+        text: 'Cancel',
+        role: 'cancel',
+        handler: data => {
+
+        }
+      },
+        {
+          text: 'Edit',
+          handler: data => {
+            if (data.newpass != null && data.repnewpass != null) {
+              if(data.newpass.length >= 7){
+                if(data.newpass == data.repnewpass) {
+                  this.userservice.updatepassword(data.newpass).then((res: any) => {
+                    if (res.success) {
+                      statusalert.setTitle('Updated');
+                      statusalert.setSubTitle('Your password has been changed successfully!!');
+                      statusalert.present();
+                    }
+                    else {
+                      statusalert.setTitle('Failed');
+                      statusalert.setSubTitle('Your password was not changed');
+                      statusalert.present();
+                    }
+                  })
+                }else{
+                  statusalert.setTitle('Failed');
+                  statusalert.setSubTitle('These password are not the same');
+                  statusalert.present();
+                }
+              }else{
+                statusalert.setTitle('Failed');
+                statusalert.setSubTitle('The new password have less than 7 character');
+                statusalert.present();
+              }
+            }else{
+              statusalert.setTitle('Failed');
+              statusalert.setSubTitle('Are fields are required');
+              statusalert.present();
+            }
+          }
+
+        }]
+    });
+    alert.present();
+  }
+
   editemail(){
     let statusalert = this.alertCtrl.create({
       buttons: ['OK']
@@ -152,7 +212,7 @@ export class ProfilePage {
 
   editname() {
     let statusalert = this.alertCtrl.create({
-      buttons: ['okay']
+      buttons: ['OK']
     });
     let alert = this.alertCtrl.create({
       title: 'Edit Nickname',
