@@ -42,7 +42,9 @@ export class ProfilepicPage {
       content: 'Please wait'
     });
     this.imgservice.openActionSheet().then(async(image: string) => {
-      loader.present();
+      if(image){
+        loader.present();
+      }
       console.log("Comienza subida");
       console.log(image);
       var d = new Date();

@@ -49,8 +49,8 @@ export class ProfilePage {
       content: 'Please wait'
     });
     this.imghandler.openActionSheet().then(async(image: string) => {
+      if(image){loader.present();}
       console.log("Comienza subida");
-      loader.present();
       console.log(image);
       var d = new Date();
       var n = d.getTime();
