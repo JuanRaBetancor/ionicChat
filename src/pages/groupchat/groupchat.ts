@@ -41,7 +41,7 @@ export class GroupchatPage {
         this.owner = true;
     }).catch((err) => {
       alert(err);
-    })
+    });
     this.groupservice.getgroupmsgs(this.groupName);
     this.events.subscribe('newgroupmsg', () => {
       this.allgroupmsgs = [];
@@ -176,7 +176,7 @@ export class GroupchatPage {
           }
         }
       ]
-    })
+    });
     sheet.present();
   }
 
@@ -211,7 +211,7 @@ export class GroupchatPage {
           }
         }
       ]
-    })
+    });
     sheet.present();
   }
 

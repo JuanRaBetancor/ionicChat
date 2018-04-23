@@ -40,6 +40,18 @@ export class BuddychatPage {
       this.zone.run(() => {
         this.allmessages = this.chatservice.buddymessages;
         for (var key in this.allmessages) {
+          var d = new Date(this.allmessages[key].timestamp);
+          var hours = d.getHours();
+          var minutes = "0" + d.getMinutes();
+          var month = d.getMonth();
+          var da = d.getDate();
+
+          var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+            "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+          var formattedTime = monthNames[month] + "-" + da + "-" + hours + ":" + minutes.substr(-2);
+
+          this.allmessages[key].timestamp = formattedTime;
           if (this.allmessages[key].message.substring(0, 4) == 'http')
             this.imgornot.push(true);
           else

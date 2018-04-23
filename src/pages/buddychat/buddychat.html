@@ -28,6 +28,7 @@
         <div class="bubble me" *ngIf="item.sentby === buddy.uid">
           <h3 *ngIf="!imgornot[i]">{{item.message}}</h3>
           <img *ngIf="imgornot[i]" src="{{item.message}}" #myImage (click)="presentImage(myImage)">
+          <p><small>{{item.timestamp}}</small></p>
         </div>
         <ion-avatar item-right *ngIf="item.sentby != buddy.uid">
           <img src="{{photoURL}}" #myImage (click)="presentImage(myImage)">
@@ -35,6 +36,7 @@
         <div class="bubblegreen you" *ngIf="item.sentby != buddy.uid">
           <h3 *ngIf="!imgornot[i]">{{item.message}}</h3>
           <img *ngIf="imgornot[i]" src="{{item.message}}" #myImage (click)="presentImage(myImage)">
+          <p><small>{{item.timestamp}}</small></p>
         </div>
       </ion-item>
     </ion-list>
