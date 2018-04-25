@@ -4,6 +4,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
+
 import { config } from './app.firebaseconfig';
 
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -21,6 +22,9 @@ import { Camera } from '@ionic-native/camera';
 import { ImageResizer } from '@ionic-native/image-resizer';
 import { IonicImageViewerModule } from 'ionic-img-viewer';
 
+import { CloudinaryModule, CloudinaryConfiguration } from '@cloudinary/angular-5.x';
+import { Cloudinary } from 'cloudinary-core';
+
 import { File } from '@ionic-native/file';
 import { FileChooser } from '@ionic-native/file-chooser';
 import { FilePath } from '@ionic-native/file-path';
@@ -36,6 +40,7 @@ import { GroupsProvider } from '../providers/groups/groups';
   ],
   imports: [
     BrowserModule,
+    CloudinaryModule.forRoot({Cloudinary}, { cloud_name: 'daw2-ulpgc' } as CloudinaryConfiguration),
     IonicModule.forRoot(MyApp, {tabsPlacement: 'top'}),
     AngularFireModule.initializeApp(config),
     AngularFirestoreModule,

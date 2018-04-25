@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { IonicImageViewerModule} from "ionic-img-viewer";
 
+
+
 /**
  * Generated class for the MainpagePage page.
  *
