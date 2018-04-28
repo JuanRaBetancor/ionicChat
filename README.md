@@ -3,7 +3,7 @@
 [![DAW2|Group3](https://cldup.com/dTxpPi9lDf.thumb.png)](https://nodesource.com/products/nsolid)
 
 Ionic + Firebase + AngularFire2 Chat app for DAW2
-Juan Ramón y Néstor
+-> Juan Ramón y Néstor
 
 	- LogIn, SignUp, Password recovering usign Firebase + AngularFire2.
 	- Firebase Database.
